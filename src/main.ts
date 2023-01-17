@@ -92,7 +92,7 @@ function update_tasks(): void {
 
       const idx = tasks.map(task => {
         for (let key of Object.keys(task[0]))
-          if (task[0][key] !== task_of_interest[0][key])
+          if (task[0][key as keyof typeof task[0]] !== task_of_interest[0][key as keyof typeof task[0]])
             return false;
         return task[1] === task_of_interest[1]
       }).indexOf(true);
@@ -112,7 +112,7 @@ function update_tasks(): void {
 ////////////////////////// EVENT LISTENERS ////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-window?.addEventListener("load", (ev: Event) => {
+window?.addEventListener("load", () => {
   if (localStorage.getItem("categories") !== null)
     categories = JSON.parse(localStorage.getItem("categories") as string);
 
@@ -203,7 +203,7 @@ add_task?.addEventListener("click", (ev: Event) => {
 
   if (tasks.every(task => {
     for (let key of Object.keys(task[0]))
-      if (task[0][key] !== new_task[0][key])
+      if (task[0][key as keyof typeof task[0]] !== new_task[0][key as keyof typeof task[0]])
         return true;
     return task[1] !== new_task[1]
   }))
