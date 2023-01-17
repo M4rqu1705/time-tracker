@@ -16,6 +16,8 @@ const export_csv: HTMLButtonElement | null = document.getElementById("export-csv
 
 const delete_all: HTMLButtonElement | null = document.getElementById("delete-all") as HTMLButtonElement | null;
 
+const temporary_output: HTMLTextAreaElement | null = document.getElementById("temporary-output") as HTMLTextAreaElement | null;
+
 const DEFAULT_CATEGORIES = [
   "Socializing",
   "Taking Classes",
@@ -220,9 +222,10 @@ export_json?.addEventListener("click", (ev) => {
 
   if (!confirm("Copy the output to the clipboard?")) return;
 
-  console.log(data);
-
   navigator.clipboard.writeText(data);
+
+  if (temporary_output)
+    temporary_output.textContent = data;
 })
 
 
@@ -239,8 +242,10 @@ export_csv?.addEventListener("click", (ev) => {
 
   if (!confirm("Copy the output to the clipboard?")) return;
 
-  console.log(data);
   navigator.clipboard.writeText(data);
+
+  if (temporary_output)
+    temporary_output.textContent = data;
 })
 
 delete_all?.addEventListener("click", (ev) => {
